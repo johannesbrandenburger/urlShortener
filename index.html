@@ -40,10 +40,23 @@
 
 <body>
     <div>
-        <h1>Shortcut <script>
-            console.log(shortLink);
-            document.write(shortLink);
-        </script> Not Found</h1>
+
+        <div class="box">
+            <h1>Shortcut</h1>
+            <h1 style="color: red;">
+                <script style="color: red;">
+                    console.log(shortLink);
+                    if (shortLink == "") {
+                        document.write("&nbsp;");
+                    } else {
+                        document.write("&nbsp;" + shortLink + "&nbsp;");
+                    }
+                </script>
+            </h1>
+            <h1> Not Found</h1>
+        </div>
+
+
         <br><br>
 
         <div>
