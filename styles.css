@@ -1,0 +1,38 @@
+body {
+    font-family:'Courier New', Courier, monospace;
+    background-color: #1E1E1E;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: white;
+}
+  
+h1 {
+    font-weight:normal;
+    color: #D7BA7D;
+    margin-bottom: 0;
+}
+
+h4 {
+    font-weight:normal;
+    color: #B5CEA8;
+    margin-top: 0;
+
+}
+
+a {
+    color: #9CDCFE;
+    text-decoration: none;
+}
+
+p {
+    color: white;
+}
+
+li {
+    margin-bottom:9px;
+}
+
+.box {
+    display: flex;
+    align-items:center;
+ }
