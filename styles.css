@@ -14,9 +14,10 @@ h1 {
 
 h4 {
     font-weight:normal;
+    font-size: x-large;
     color: #B5CEA8;
     margin-top: 0;
-
+    margin-bottom: 0;
 }
 
 a {
@@ -36,3 +37,8 @@ li {
     display: flex;
     align-items:center;
  }
+
+.grey {
+    display: flex;
+    color: rgb(94, 94, 94);
+}
