@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="styles.css">
     <!-- <link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico"> -->
     <title>Link Shortener j1b.site</title>
-
+    <link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
 
     <script type="text/javascript">
         console.log("startet");
@@ -32,7 +32,7 @@
             }
         }
 
-        if (!foundLink) window.location.href = "linkNotFound";
+        // if (!foundLink) window.location.href = "linkNotFound";
     </script>
 
 
@@ -40,8 +40,11 @@
 
 <body>
     <div>
-        <h1>Link Shortener</h1>
-        <h4>j1b.site</h4>       
-
+        <h1>Shortcut <script>
+            console.log(shortLink);
+            document.write(shortLink);
+        </script> Not Found</h1>
+        <h4>j1b.site</h4>        
+        <div>Link Shortener</div>
     </div>
 </body>
