@@ -55,5 +55,5 @@ input[type="text"] {
     border: 1pt solid;
     border-color: white;
     font-family:'Courier New', Courier, monospace;
-    border-radius: 2%;
+    border-radius: 3pt;
   }
