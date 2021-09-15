@@ -54,11 +54,24 @@
 
         for (const entry of urlArray) {
             if (entry[0] == shortLink) {
-                window.location.href = entry[1];
                 foundLink = true;
+                setTimeout(function(){ 
+                    window.location.href = entry[1]; 
+                }, 3000);
                 break;
             }
         }
+
+// old:
+        // for (const entry of urlArray) {
+        //     if (entry[0] == shortLink) {
+        //         foundLink = true;
+        //         window.location.href = entry[1];
+                
+        //         break;
+        //     }
+        // }
+
 
         // if (!foundLink) window.location.href = "linkNotFound";
     </script>
