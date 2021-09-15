@@ -51,7 +51,9 @@ input[type="text"] {
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0);
     text-align: left;
-    color: white;
+    color: violet;
     border: 1pt solid;
-    border-color: violet;
+    border-color: white;
+    font-family:'Courier New', Courier, monospace;
+    border-radius: 2%;
   }
