@@ -45,7 +45,21 @@ li {
 
 
 input[type="text"] {
-    width: 100%;
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0);
+    text-align: left;
+    color: #9CDCFE;
+    border: 1pt solid;
+    border-color: white;
+    font-family:'Courier New', Courier, monospace;
+    border-radius: 3pt;
+}
+
+input[type="password"] {
+    width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
