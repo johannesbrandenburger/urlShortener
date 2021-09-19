@@ -18,14 +18,31 @@ const redirectDirectly = async () => {
         break;
     }
 
-
-    for (i=0; i<shortcutList.length; i++) {
-        console.log(shortcutList[i]["shortcut"]);
-        if (shortcutList[i]["shortcut"] == shortLink) {
-            foundLink = true;
-            window.location.href = shortcutList[i]["destination_link"]
+    if (keys.length == 0 || shortLink == "") {
+        document.getElementById("startHeader").style.display = "none";
+        document.getElementById("addShortcutHeader").style.display = "flex";
+        terminalLog("no shortcut inserted!");
+    } else {
+        terminalLog("shortcut: " + shortLink + " inserted");
+        for (i=0; i<shortcutList.length; i++) {
+            console.log(shortcutList[i]["shortcut"]);
+            if (shortcutList[i]["shortcut"] == shortLink) {
+                foundLink = true;
+                terminalLog("redirecting to: " + shortcutList[i]["destination_link"]);
+                window.location.href = shortcutList[i]["destination_link"];
+            }
+        }
+        if (!foundLink) {
+            terminalLog("shortcut was not found in database");
+            document.getElementById("startHeader").style.display = "none";
+            document.getElementById("notFoundHeader").style.display = "flex";
         }
     }
+
+
+
+
+
 }
 
 
@@ -39,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 
 const clickedAdd = () => {
-    console.log("clickedAdd()");
+    terminalLog("clicked add");
     var inputShortcut = document.getElementById("newShortcut").value;
     var inputURL = document.getElementById("newURL").value;
     var inputPassword = document.getElementById("password").value;
@@ -56,8 +73,22 @@ const clickedAdd = () => {
 
 };
 
+
+
 const wrongPasswort = () => {
-    console.log("wrongPasswort()");
+    terminalLog("Error: wrong passwort!");
+};
+
+const missingFields = () => {
+    terminalLog("Error: missing fields!");
+};
+
+const terminalLog = (message) => {
+    document.getElementById("terminal5").innerHTML = document.getElementById("terminal4").innerHTML;
+    document.getElementById("terminal4").innerHTML = document.getElementById("terminal3").innerHTML;
+    document.getElementById("terminal3").innerHTML = document.getElementById("terminal2").innerHTML;
+    document.getElementById("terminal2").innerHTML = document.getElementById("terminal1").innerHTML;
+    document.getElementById("terminal1").innerHTML = "> " + message;
 };
 
 const missingFields = () => {
@@ -72,7 +103,10 @@ const hash = (key) => {
     return hash;
 };
 
+
+
 const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
+    terminalLog("addNewShortcut()");
 
     const { data: shortcutsSoFar, error } = await supabase
         .from('shortcuts')
@@ -89,7 +123,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
     }
 
     if (isAllreadyTaken) {
-        // is allready taken
+        terminalLog("Error: Shortcut is allready taken");
     } else {
         const { d, e } = await supabase
         .from('shortcuts')
@@ -99,6 +133,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         document.getElementById("newShortcut").value = "";
         document.getElementById("newURL").value = "";
         document.getElementById("password").value = "";
+        terminalLog("Added Shortcut:" + inputShortcut);
     }
 
 }
