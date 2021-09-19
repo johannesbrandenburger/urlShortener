@@ -125,7 +125,8 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         document.getElementById("newShortcut").value = "";
         document.getElementById("newURL").value = "";
         document.getElementById("password").value = "";
-        terminalLog("Added Shortcut:" + inputShortcut);
+        terminalLog("Added Shortcut: " + inputShortcut);
+        terminalLog("Link: " + "j1b.site/?" + inputShortcut);
     }
 
 }
