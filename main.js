@@ -1,7 +1,6 @@
 var supabase = supabase.createClient("https://kgshezreyobypiidaeii.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTk1MTgzNywiZXhwIjoxOTQ3NTI3ODM3fQ.OVMR_WiGUsuCVylx7Ih6Kuy40LYK-eipFKu7t6qydUE");
 
 const redirectDirectly = async () => {
-    
     const { data: shortcutList, error } = await supabase
     .from('shortcuts')
     .select()
@@ -21,7 +20,7 @@ const redirectDirectly = async () => {
     if (keys.length == 0 || shortLink == "") {
         document.getElementById("startHeader").style.display = "none";
         document.getElementById("addShortcutHeader").style.display = "flex";
-        terminalLog("no shortcut inserted!");
+        terminalLog("no shortcut inserted");
     } else {
         terminalLog("shortcut: " + shortLink + " inserted");
         for (i=0; i<shortcutList.length; i++) {
@@ -38,7 +37,7 @@ const redirectDirectly = async () => {
             document.getElementById("notFoundHeader").style.display = "flex";
         }
     }
-
+    
 }
 
 
@@ -71,7 +70,7 @@ const clickedAdd = () => {
 
 
 const wrongPasswort = () => {
-    terminalLog("Error: wrong passwort!");
+    terminalLog("Error: wrong password!");
 };
 
 const missingFields = () => {
@@ -138,6 +137,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         terminalLog("Added Shortcut: " + inputShortcut);
         terminalLog("Destination: " + inputDestinationLink);
         terminalLog("Link: " + "j1b.site/?" + inputShortcut);
+        copyTextToClipboard("j1b.site/?" + inputShortcut);
     }
 
 }
