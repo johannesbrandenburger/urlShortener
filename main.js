@@ -39,10 +39,6 @@ const redirectDirectly = async () => {
         }
     }
 
-
-
-
-
 }
 
 
@@ -74,7 +70,6 @@ const clickedAdd = () => {
 };
 
 
-
 const wrongPasswort = () => {
     terminalLog("Error: wrong passwort!");
 };
@@ -91,9 +86,6 @@ const terminalLog = (message) => {
     document.getElementById("terminal1").innerHTML = "> " + message;
 };
 
-const missingFields = () => {
-    console.log("missingFields()");
-};
 
 const hash = (key) => {
     let hash = 0;

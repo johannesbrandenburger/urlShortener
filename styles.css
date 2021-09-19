@@ -64,6 +64,7 @@ li {
     margin-top: 0;
     margin-bottom: 0;
     font-size: small;
+    max-width: 400;
 }
 
 
@@ -79,6 +80,7 @@ input[type="text"] {
     border-color: white;
     font-family:'Courier New', Courier, monospace;
     border-radius: 3pt;
+    max-width: 400;
 }
 
 input[type="password"] {
@@ -93,6 +95,7 @@ input[type="password"] {
     border-color: white;
     font-family:'Courier New', Courier, monospace;
     border-radius: 3pt;
+    max-width: 400;
 }
 
 button{
@@ -107,4 +110,5 @@ button{
     border-color: white;
     font-family:'Courier New', Courier, monospace;
     border-radius: 3pt;
+    text-align: center;
 }
