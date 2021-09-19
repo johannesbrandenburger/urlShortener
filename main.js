@@ -57,8 +57,6 @@ const wrongPasswort = () => {
     console.log("wrongPasswort()");
 };
 
-<<<<<<< Updated upstream
-=======
 const missingFields = () => {
     console.log("missingFields()");
 };
@@ -84,7 +82,6 @@ const terminalLog = (message) => {
     document.getElementById("terminal1").innerHTML = newText;
 };
 
->>>>>>> Stashed changes
 const hash = (key) => {
     let hash = 0;
     for (let i = 0; i < key.length; i++) {
