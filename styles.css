@@ -58,6 +58,12 @@ li {
 .terminal {
     font-family: Courier;
     background-color: rgba(0, 0, 0, 0.377);
+    height: 20; 
+    width: 50%;
+    min-width: 300;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: small;
 }
 
 
