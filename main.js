@@ -114,6 +114,16 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         }
     }
 
+
+    if (inputDestinationLink[0]!= "h" &&
+        inputDestinationLink[1]!= "t" &&
+        inputDestinationLink[2]!= "t" &&
+        inputDestinationLink[3]!= "p"
+    ) {
+        inputDestinationLink = "https://" + inputDestinationLink;
+    }
+
+
     if (isAllreadyTaken) {
         terminalLog("Error: Shortcut is allready taken");
     } else {
@@ -126,6 +136,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         document.getElementById("newURL").value = "";
         document.getElementById("password").value = "";
         terminalLog("Added Shortcut: " + inputShortcut);
+        terminalLog("Destination: " + inputDestinationLink);
         terminalLog("Link: " + "j1b.site/?" + inputShortcut);
     }
 
