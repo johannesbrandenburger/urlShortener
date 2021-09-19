@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 
 const clickedAdd = () => {
-    console.log("clickedAdd()");
+    terminalLog("clickedAdd()");
     var inputShortcut = document.getElementById("newShortcut").value;
     var inputURL = document.getElementById("newURL").value;
     var inputPassword = document.getElementById("password").value;
@@ -51,10 +51,40 @@ const clickedAdd = () => {
 
 };
 
+
+
 const wrongPasswort = () => {
     console.log("wrongPasswort()");
 };
 
+<<<<<<< Updated upstream
+=======
+const missingFields = () => {
+    console.log("missingFields()");
+};
+
+const terminalLog = (message) => {
+    var currentText = document.getElementById("terminal1").innerHTML;
+    var newText = currentText + "\n" + "> " + message;
+    var textLines = newText.split(/\r\n|\r|\n/);
+    if (textLines.length > 6) {
+        console.log("tolong");
+        console.log(textLines);
+        textLines.splice(0,1);
+        console.log(textLines);
+        newText = textLines[0];
+        for (let i = 1; i < textLines.length; i++) {
+            newText = "\n" + textLines[i];
+        }
+        console.log(newText);
+    }
+    
+
+
+    document.getElementById("terminal1").innerHTML = newText;
+};
+
+>>>>>>> Stashed changes
 const hash = (key) => {
     let hash = 0;
     for (let i = 0; i < key.length; i++) {
@@ -62,6 +92,8 @@ const hash = (key) => {
     }
     return hash;
 };
+
+
 
 const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
 

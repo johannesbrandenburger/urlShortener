@@ -55,6 +55,11 @@ li {
     color: rgb(94, 94, 94);
 }
 
+.terminal {
+    font-family: Courier;
+    background-color: rgba(0, 0, 0, 0.377);
+}
+
 
 input[type="text"] {
     width: 50%;
