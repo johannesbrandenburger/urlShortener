@@ -44,7 +44,12 @@ const clickedAdd = () => {
     var inputURL = document.getElementById("newURL").value;
     var inputPassword = document.getElementById("password").value;
     if (hash(inputPassword) == 690) {
-        addNewShortcut(inputShortcut, inputURL);
+        if (inputShortcut != "" && inputURL != "") {
+            addNewShortcut(inputShortcut, inputURL);
+        } else {
+            missingFields();
+        }
+        
     } else {
         wrongPasswort();
     }
@@ -53,6 +58,10 @@ const clickedAdd = () => {
 
 const wrongPasswort = () => {
     console.log("wrongPasswort()");
+};
+
+const missingFields = () => {
+    console.log("missingFields()");
 };
 
 const hash = (key) => {
