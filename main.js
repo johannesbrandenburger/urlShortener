@@ -83,10 +83,10 @@ const terminalLog = (message, isError=false) => {
         newColor = "red";
     }
 
-    document.getElementById("terminal5").style = document.getElementById("terminal4").style;
-    document.getElementById("terminal4").style = document.getElementById("terminal3").style;
-    document.getElementById("terminal3").style = document.getElementById("terminal2").style;
-    document.getElementById("terminal2").style = document.getElementById("terminal1").style;
+    document.getElementById("terminal5").style.color = document.getElementById("terminal4").style.color;
+    document.getElementById("terminal4").style.color = document.getElementById("terminal3").style.color;
+    document.getElementById("terminal3").style.color = document.getElementById("terminal2").style.color;
+    document.getElementById("terminal2").style.color = document.getElementById("terminal1").style.color;
     document.getElementById("terminal1").style.color = newColor;
 
 
