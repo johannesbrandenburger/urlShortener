@@ -70,14 +70,26 @@ const clickedAdd = () => {
 
 
 const wrongPasswort = () => {
-    terminalLog("Error: wrong password!");
+    terminalLog("Error: wrong password!", true);
 };
 
 const missingFields = () => {
-    terminalLog("Error: missing fields!");
+    terminalLog("Error: missing fields!", true);
 };
 
-const terminalLog = (message) => {
+const terminalLog = (message, isError=false) => {
+    var newColor = "white";
+    if (isError) {
+        newColor = "red";
+    }
+
+    document.getElementById("terminal5").style = document.getElementById("terminal4").style;
+    document.getElementById("terminal4").style = document.getElementById("terminal3").style;
+    document.getElementById("terminal3").style = document.getElementById("terminal2").style;
+    document.getElementById("terminal2").style = document.getElementById("terminal1").style;
+    document.getElementById("terminal1").style.color = newColor;
+
+
     document.getElementById("terminal5").innerHTML = document.getElementById("terminal4").innerHTML;
     document.getElementById("terminal4").innerHTML = document.getElementById("terminal3").innerHTML;
     document.getElementById("terminal3").innerHTML = document.getElementById("terminal2").innerHTML;
@@ -124,7 +136,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
 
 
     if (isAllreadyTaken) {
-        terminalLog("Error: Shortcut is allready taken");
+        terminalLog("Error: Shortcut is allready taken", true);
     } else {
         const { d, e } = await supabase
         .from('shortcuts')
