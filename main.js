@@ -1,10 +1,6 @@
 var supabase = supabase.createClient("https://kgshezreyobypiidaeii.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTk1MTgzNywiZXhwIjoxOTQ3NTI3ODM3fQ.OVMR_WiGUsuCVylx7Ih6Kuy40LYK-eipFKu7t6qydUE");
 
 const redirectDirectly = async () => {
-    const { data: shortcutList, error } = await supabase
-    .from('shortcuts') 
-    .select()
-    console.log(shortcutList);
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -23,16 +19,29 @@ const redirectDirectly = async () => {
         terminalLog("no shortcut inserted");
     } else {
         terminalLog("shortcut: " + shortLink + " inserted");
+
+        terminalLog("query database");
+        const { data: shortcutList, error } = await supabase
+        .from('shortcuts') 
+        .select()
+        console.log(shortcutList);
+    
+        if (shortcutList !== undefined || shortcutList !== []) {
+            terminalLog("queried database successfully", "success");
+        } else {
+            terminalLog("Error: failed to query database", "error");
+        }
+
         for (i=0; i<shortcutList.length; i++) {
             console.log(shortcutList[i]["shortcut"]);
             if (shortcutList[i]["shortcut"] == shortLink) {
                 foundLink = true;
-                terminalLog("redirecting to: " + shortcutList[i]["destination_link"]);
+                terminalLog("redirecting to: " + shortcutList[i]["destination_link"], "success");
                 window.location.href = shortcutList[i]["destination_link"];
             }
         }
         if (!foundLink) {
-            terminalLog("shortcut was not found in database");
+            terminalLog("Error: shortcut was not found in database", "error");
             document.getElementById("startHeader").style.display = "none";
             document.getElementById("notFoundHeader").style.display = "flex";
         }
@@ -70,18 +79,20 @@ const clickedAdd = () => {
 
 
 const wrongPasswort = () => {
-    terminalLog("Error: wrong password!", true);
+    terminalLog("Error: wrong password!", "error");
 };
 
 const missingFields = () => {
-    terminalLog("Error: missing fields!", true);
+    terminalLog("Error: missing fields!", "error");
 };
 
-const terminalLog = (message, isError=false) => {
+const terminalLog = (message, type="normal") => {
     var newColor = "white";
-    if (isError) {
+    if (type == "error") {
         newColor = "red";
-    }
+    } else if (type == "success") {
+        newColor = "green";
+    };
 
     document.getElementById("terminal5").style.color = document.getElementById("terminal4").style.color;
     document.getElementById("terminal4").style.color = document.getElementById("terminal3").style.color;
@@ -111,10 +122,17 @@ const hash = (key) => {
 const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
     terminalLog("addNewShortcut()");
 
+    terminalLog("query database");
     const { data: shortcutsSoFar, error } = await supabase
         .from('shortcuts')
         .select()
     console.log(shortcutsSoFar);
+
+    if (shortcutsSoFar !== undefined || shortcutsSoFar !== []) {
+        terminalLog("queried database successfully", "success");
+    } else {
+        terminalLog("Error: failed to query database", "error");
+    }
 
     var isAllreadyTaken = false;
 
@@ -146,7 +164,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
         document.getElementById("newShortcut").value = "";
         document.getElementById("newURL").value = "";
         document.getElementById("password").value = "";
-        terminalLog("Added Shortcut: " + inputShortcut);
+        terminalLog("Added Shortcut: " + inputShortcut, "success");
         terminalLog("Destination: " + inputDestinationLink);
         terminalLog("Link: " + "j1b.site/?" + inputShortcut);
         copyTextToClipboard("j1b.site/?" + inputShortcut);

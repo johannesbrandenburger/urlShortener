@@ -56,7 +56,7 @@ li {
 }
 
 .terminal {
-    font-family: Courier;
+    font-family: 'Courier New', Courier, monospace;
     background-color: rgba(0, 0, 0, 0.377);
     height: 20; 
     width: 50%;
