@@ -2,7 +2,7 @@ var supabase = supabase.createClient("https://kgshezreyobypiidaeii.supabase.co",
 
 const redirectDirectly = async () => {
     const { data: shortcutList, error } = await supabase
-    .from('shortcuts')
+    .from('shortcuts') 
     .select()
     console.log(shortcutList);
 
