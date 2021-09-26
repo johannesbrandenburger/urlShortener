@@ -112,3 +112,25 @@ button{
     border-radius: 3pt;
     text-align: center;
 }
+
+
+.shimmer {
+    -webkit-mask:linear-gradient(-60deg,#000 30%,#0005,#000 70%) right/300% 100%;
+    background-repeat: no-repeat;
+    animation: shimmer 2.5s infinite;
+  }
+  
+@keyframes shimmer {
+    100% {-webkit-mask-position:left}
+}
+
+.glow {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.61);
+    /* box-shadow:
+        0 0 60px 30px rgba(0, 0, 0, 0.171),  /* inner white 
+        0 0 100px 60px rgba(255, 0, 255, 0), /* middle magenta 
+        0 0 140px 90px rgba(0, 255, 255, 0); outer cyan */
+}

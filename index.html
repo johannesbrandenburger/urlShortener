@@ -7,7 +7,7 @@
 
 </head>
 
-<body style="min-width: 700;">
+<body style="min-width: 700; cursor: none;">
 
     <div>
 
@@ -19,6 +19,7 @@
             <h1>Add new shortcut</h1>
         </div>
 
+        <div class="glow" id="glowPointer" style="float: left; position: absolute; display: none;"></div>
 
         <div class="box" id="notFoundHeader" style="display: none;">
             <h1>Shortcut</h1>
@@ -50,12 +51,12 @@
         <br><br>
 
         <div>
-            <div><input type="text" id="newShortcut"> Shortcut </input></div>
-            <div><input type="text" id="newURL"> Destination URL </input></div>
-            <div><input type="password" id="password"> Password </input></div>
+            <div><input style="cursor: none;" type="text" id="newShortcut"> Shortcut </input></div>
+            <div><input style="cursor: none;" type="text" id="newURL"> Destination URL </input></div>
+            <div><input style="cursor: none;" type="password" id="password"> Password </input></div>
         </div>
 
-        <button id="addButton">Add</button>
+        <button style="cursor: none;" id="addButton">Add</button>
         
 
 
@@ -71,7 +72,7 @@
         <br><br>
         <br><br>
         <div>
-            <h4>j1b.site</h4>        
+            <h4 class="shimmer">j1b.site</h4>        
             <div>
                 <p style="margin-right: 10pt;">Link Shortener </p> 
                 <p class="grey">©JohannesBrandenburger</p>
@@ -79,5 +80,8 @@
         </div>
     </div>
     <script src="./main.js"></script>
+    <script src="./glowPointer.js"></script>
+
+
 
 </body>
