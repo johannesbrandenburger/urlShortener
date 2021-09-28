@@ -57,7 +57,9 @@ li {
 
 .impressum {
     color: rgb(94, 94, 94);
-    font-size: small;
+    font-size: x-small;
+    margin-top: 25%;
+    margin-bottom: 25%;
 }
 
 .impressumHeader {
