@@ -55,6 +55,16 @@ li {
     color: rgb(94, 94, 94);
 }
 
+.impressum {
+    color: rgb(94, 94, 94);
+    font-size: small;
+}
+
+.impressumHeader {
+    color: rgb(94, 94, 94);
+    font-weight: bold;
+}
+
 .terminal {
     font-family: 'Courier New', Courier, monospace;
     background-color: rgba(0, 0, 0, 0.377);
