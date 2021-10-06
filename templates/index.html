@@ -1,8 +1,7 @@
 <head>    
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Link Shortener | j1b.site</title>
-    <link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
-
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 </head>
@@ -14,6 +13,8 @@
         <div class="box" id="startHeader">
             <h1>j1b.site </h1>
         </div>
+
+        <p>{{embed}}</p>
 
         <div class="box" id="addShortcutHeader" style="display: none;">
             <h1>Add new shortcut</h1>
@@ -90,6 +91,6 @@
             </div>
         </div>
     </div>
-    <script src="./main.js"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
 </body>

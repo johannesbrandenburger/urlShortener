@@ -1,10 +1,24 @@
-// @ts-check
 
 
-var supabase = supabase.createClient("https://kgshezreyobypiidaeii.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTk1MTgzNywiZXhwIjoxOTQ3NTI3ODM3fQ.OVMR_WiGUsuCVylx7Ih6Kuy40LYK-eipFKu7t6qydUE");
 
-const redirectDirectly = async () => {
+const getSupabaseObject = async (supabase) => {
+    var supabaseKey = await fetch('/getSupabaseKey')
+    .then(function (response) {
+        return response.json();
+    }).then(function (text) {
+        var supabaseKey=text.key;
+        return supabaseKey;
+    });
+    console.log(supabaseKey);
+    var sBase = supabase.createClient("https://kgshezreyobypiidaeii.supabase.co", supabaseKey);
+    console.log("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTk1MTgzNywiZXhwIjoxOTQ3NTI3ODM3fQ.OVMR_WiGUsuCVylx7Ih6Kuy40LYK-eipFKu7t6qydUE");
+    console.log(supabaseKey);
+    return sBase;
+}
 
+
+const redirectDirectly = async (supabase) => {
+    var sBase = await getSupabaseObject(supabase);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const keys = urlParams.keys();
@@ -24,7 +38,7 @@ const redirectDirectly = async () => {
         terminalLog("shortcut: " + shortLink + " inserted");
 
         terminalLog("query database");
-        const { data: shortcutList, error } = await supabase
+        const { data: shortcutList, error } = await sBase
         .from('shortcuts') 
         .select()
         console.log(shortcutList);
@@ -58,18 +72,18 @@ window.userToken = null;
 document.addEventListener('DOMContentLoaded', function (event) {
   
     var addButton = document.querySelector('#addButton')
-    addButton.onclick = clickedAdd.bind(addButton);
+    addButton.onclick = clickedAdd(sBase).bind(addButton);
 });
 
 
-const clickedAdd = () => {
+const clickedAdd = (sBase) => {
     terminalLog("clicked add");
     var inputShortcut = document.getElementById("newShortcut").value;
     var inputURL = document.getElementById("newURL").value;
     var inputPassword = document.getElementById("password").value;
     if (hash(inputPassword) == 690) {
         if (inputShortcut != "" && inputURL != "") {
-            addNewShortcut(inputShortcut, inputURL);
+            addNewShortcut(inputShortcut, inputURL, sBase);
         } else {
             missingFields();
         }
@@ -122,11 +136,11 @@ const hash = (key) => {
 
 
 
-const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
+const addNewShortcut = async (inputShortcut, inputDestinationLink, sBase) => {
     terminalLog("addNewShortcut()");
 
     terminalLog("query database");
-    const { data: shortcutsSoFar, error } = await supabase
+    const { data: shortcutsSoFar, error } = await sBase
         .from('shortcuts')
         .select()
     console.log(shortcutsSoFar);
@@ -159,7 +173,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
     if (isAllreadyTaken) {
         terminalLog("Error: Shortcut is allready taken", true);
     } else {
-        const { d, e } = await supabase
+        const { d, e } = await sBase
         .from('shortcuts')
         .insert([
             { shortcut: inputShortcut, destination_link: inputDestinationLink }
@@ -175,4 +189,4 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
 
 }
 
-redirectDirectly();
+redirectDirectly(supabase);
