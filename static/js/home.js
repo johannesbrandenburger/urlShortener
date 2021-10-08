@@ -6,14 +6,16 @@ const getShortcuts = async () => {
     .then(function (response) {
         return response.json();
     }).then(function (shortcuts) {
-        console.log(shortcuts);
+        return shortcuts;
     });
+    console.log(shortcuts);
+    return shortcuts;
 }
 
 
 const pushNewShortcut = async (shortcut, url) => {
     // add error handling here
-    
+
     var url = "www.google.com";
     var shortcut = "googleshort";
     fetch(`/pushNewShortcut/${shortcut}/${url}`)
@@ -145,58 +147,57 @@ const pushNewShortcut = async (shortcut, url) => {
 
 
 
-// const addNewShortcut = async (inputShortcut, inputDestinationLink, sBase) => {
-//     terminalLog("addNewShortcut()");
+const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
+    terminalLog("addNewShortcut()");
 
-//     terminalLog("query database");
-//     const { data: shortcutsSoFar, error } = await sBase
-//         .from('shortcuts')
-//         .select()
-//     console.log(shortcutsSoFar);
+    terminalLog("query database");
+    const { data: shortcutsSoFar, error } = await sBase
+        .from('shortcuts')
+        .select()
+    console.log(shortcutsSoFar);
 
-//     if (shortcutsSoFar !== undefined || shortcutsSoFar !== []) {
-//         terminalLog("queried database successfully", "success");
-//     } else {
-//         terminalLog("Error: failed to query database", "error");
-//     }
+    if (shortcutsSoFar !== undefined || shortcutsSoFar !== []) {
+        terminalLog("queried database successfully", "success");
+    } else {
+        terminalLog("Error: failed to query database", "error");
+    }
 
-//     var isAllreadyTaken = false;
+    var isAllreadyTaken = false;
 
-//     for (i=0; i<shortcutsSoFar.length; i++) {
-//         console.log(shortcutsSoFar[i]["shortcut"]);
-//         if (shortcutsSoFar[i]["shortcut"] == inputShortcut) {
-//             isAllreadyTaken = true;
-//         }
-//     }
-
-
-//     if (inputDestinationLink[0]!= "h" &&
-//         inputDestinationLink[1]!= "t" &&
-//         inputDestinationLink[2]!= "t" &&
-//         inputDestinationLink[3]!= "p"
-//     ) {
-//         inputDestinationLink = "https://" + inputDestinationLink;
-//     }
+    for (i=0; i<shortcutsSoFar.length; i++) {
+        console.log(shortcutsSoFar[i]["shortcut"]);
+        if (shortcutsSoFar[i]["shortcut"] == inputShortcut) {
+            isAllreadyTaken = true;
+        }
+    }
 
 
-//     if (isAllreadyTaken) {
-//         terminalLog("Error: Shortcut is allready taken", true);
-//     } else {
-//         const { d, e } = await sBase
-//         .from('shortcuts')
-//         .insert([
-//             { shortcut: inputShortcut, destination_link: inputDestinationLink }
-//         ]);
-//         document.getElementById("newShortcut").value = "";
-//         document.getElementById("newURL").value = "";
-//         document.getElementById("password").value = "";
-//         terminalLog("Added Shortcut: " + inputShortcut, "success");
-//         terminalLog("Destination: " + inputDestinationLink);
-//         terminalLog("Link: " + "j1b.site/?" + inputShortcut);
-//         copyTextToClipboard("j1b.site/?" + inputShortcut);
-//     }
+    if (inputDestinationLink[0]!= "h" &&
+        inputDestinationLink[1]!= "t" &&
+        inputDestinationLink[2]!= "t" &&
+        inputDestinationLink[3]!= "p"
+    ) {
+        inputDestinationLink = "https://" + inputDestinationLink;
+    }
 
-// }
-getShortcuts();
-pushNewShortcut(4,1);
-// redirectDirectly(supabase);
+
+    if (isAllreadyTaken) {
+        terminalLog("Error: Shortcut is allready taken", true);
+    } else {
+        const { d, e } = await sBase
+        .from('shortcuts')
+        .insert([
+            { shortcut: inputShortcut, destination_link: inputDestinationLink }
+        ]);
+        document.getElementById("newShortcut").value = "";
+        document.getElementById("newURL").value = "";
+        document.getElementById("password").value = "";
+        terminalLog("Added Shortcut: " + inputShortcut, "success");
+        terminalLog("Destination: " + inputDestinationLink);
+        terminalLog("Link: " + "j1b.site/?" + inputShortcut);
+        copyTextToClipboard("j1b.site/?" + inputShortcut);
+    }
+
+}
+// getShortcuts();
+redirectDirectly();

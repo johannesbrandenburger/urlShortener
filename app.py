@@ -4,15 +4,16 @@ from supabase_py import create_client, Client
 import os
 
 app = Flask(__name__)
-data = list(range(1,300,3))
-SBaseUrl: str = "https://kgshezreyobypiidaeii.supabase.co" # os.environ.get("SUPABASE_URL")
-SBaseKey: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTk1MTgzNywiZXhwIjoxOTQ3NTI3ODM3fQ.OVMR_WiGUsuCVylx7Ih6Kuy40LYK-eipFKu7t6qydUE" # os.environ.get("SUPABASE_KEY")
+SBaseUrl: str = os.environ.get("SUPABASE_URL")
+SBaseKey: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(SBaseUrl, SBaseKey)
+
+print("SBaseUrl: "+ SBaseUrl)
+print("SBaseKey: "+ SBaseKey)
 
 @app.route('/')
 def home_page():
-    example_embed='This string is from python'
-    return render_template('index.html', embed=example_embed)
+    return render_template('index.html')
 
 
 @app.route('/getShortcuts', methods=['GET'])
@@ -20,6 +21,7 @@ def testfn1():
     if request.method == 'GET':
         data = supabase.table("shortcuts").select("*").execute()
         shortcuts = data.get("data", [])
+
         returnValue = shortcuts
         return jsonify(returnValue)  # serialize and use JSON headers
 
@@ -45,8 +47,12 @@ def data_get(shortcut,url):
 
 def addNewShortCutToDatabase(shortcut, url):
     pushWasSuccessfull = False 
-    data = supabase.table("shortcuts").insert({"shortcut":shortcut, "destination_link":url, }).execute()
+    try: 
+        data = supabase.table("shortcuts").insert({"shortcut":shortcut, "destination_link":url, }).execute()
+        pushWasSuccessfull = len(data.get("data", [])) > 0
+    except:
+        pushWasSuccessfull = False
     return pushWasSuccessfull
 
 #########  run app  #########
-app.run(debug=True)
+app.run(debug=True, port=80)
