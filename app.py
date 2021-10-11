@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request, render_template
 from supabase_py import create_client, Client
 import os
+import json
 
 app = Flask(__name__)
 SBaseUrl: str = os.environ.get("SUPABASE_URL")
@@ -36,9 +37,10 @@ def data_get(shortcut,url):
 
     else: # GET request
         print("******************")
+        print(shortcut)
         print(shortcut+"->"+url)
         print("******************")
-        pushWasSuccessfull = addNewShortCutToDatabase(shortcut, url)
+        pushWasSuccessfull = addNewShortCutToDatabase(shortcut, url["url"])
         if pushWasSuccessfull:
             return "True"
         else:
@@ -57,4 +59,4 @@ def addNewShortCutToDatabase(shortcut, url):
 #########  run app  #########
 if __name__ == "__main__":
     from waitress import serve
-    serve(app, host="0.0.0.0", port=80)
+    serve(app, host="0.0.0.0", port=8080)

@@ -14,11 +14,9 @@ const getShortcuts = async () => {
 
 
 const pushNewShortcut = async (shortcut, url) => {
-    // add error handling here
-
-    var url = "www.google.com";
-    var shortcut = "googleshort";
-    fetch(`/pushNewShortcut/${shortcut}/${url}`)
+    // var url = "https://google.com"
+    urlnew = '{ "url":' + url + ' }'
+    fetch(`/pushNewShortcut/${shortcut}/${urlnew}`)
       .then(function (response) {
           return response.text();
       }).then(function (text) {
@@ -28,122 +26,123 @@ const pushNewShortcut = async (shortcut, url) => {
 }
 
 
-// const redirectDirectly = async (supabase) => {
-//     var sBase = await getSupabaseObject(supabase);
-//     const queryString = window.location.search;
-//     const urlParams = new URLSearchParams(queryString);
-//     const keys = urlParams.keys();
-//     var shortLink = "";
-//     var foundLink = false;
-//     for (const key of keys) {
-//         console.log(key);
-//         shortLink = key;
-//         break;
-//     }
+const redirectDirectly = async () => {
 
-//     if (keys.length == 0 || shortLink == "") {
-//         document.getElementById("startHeader").style.display = "none";
-//         document.getElementById("addShortcutHeader").style.display = "flex";
-//         terminalLog("no shortcut inserted");
-//     } else {
-//         terminalLog("shortcut: " + shortLink + " inserted");
+    pushNewShortcut("test1234", "https://1drv.ms/w/s!Amki7w_tw8-VgTl2gxbvdnpHlP63?e=9a3uVJ")
 
-//         terminalLog("query database");
-//         const { data: shortcutList, error } = await sBase
-//         .from('shortcuts') 
-//         .select()
-//         console.log(shortcutList);
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const keys = urlParams.keys();
+    var shortLink = "";
+    var foundLink = false;
+    for (const key of keys) {
+        console.log(key);
+        shortLink = key;
+        break;
+    }
+
+    if (keys.length == 0 || shortLink == "") {
+        document.getElementById("startHeader").style.display = "none";
+        document.getElementById("addShortcutHeader").style.display = "flex";
+        terminalLog("no shortcut inserted");
+    } else {
+        terminalLog("shortcut: " + shortLink + " inserted");
+
+        terminalLog("query database");
+        shortcutList = await getShortcuts();
+        console.log(shortcutList);
     
-//         if (shortcutList !== undefined || shortcutList !== []) {
-//             terminalLog("queried database successfully", "success");
-//         } else {
-//             terminalLog("Error: failed to query database", "error");
-//         }
+        if (shortcutList !== undefined || shortcutList !== []) {
+            terminalLog("queried database successfully", "success");
+        } else {
+            terminalLog("Error: failed to query database", "error");
+        }
 
-//         for (i=0; i<shortcutList.length; i++) {
-//             console.log(shortcutList[i]["shortcut"]);
-//             if (shortcutList[i]["shortcut"] == shortLink) {
-//                 foundLink = true;
-//                 terminalLog("redirecting to: " + shortcutList[i]["destination_link"], "success");
-//                 window.location.href = shortcutList[i]["destination_link"];
-//             }
-//         }
-//         if (!foundLink) {
-//             terminalLog("Error: shortcut was not found in database", "error");
-//             document.getElementById("startHeader").style.display = "none";
-//             document.getElementById("notFoundHeader").style.display = "flex";
-//         }
-//     }
+        for (i=0; i<shortcutList.length; i++) {
+            console.log(shortcutList[i]["shortcut"]);
+            if (shortcutList[i]["shortcut"] == shortLink) {
+                foundLink = true;
+                terminalLog("redirecting to: " + shortcutList[i]["destination_link"], "success");
+                window.location.href = shortcutList[i]["destination_link"];
+            }
+        }
+        if (!foundLink) {
+            terminalLog("Error: shortcut was not found in database", "error");
+            document.getElementById("startHeader").style.display = "none";
+            document.getElementById("notFoundHeader").style.display = "flex";
+        }
+    }
     
-// }
+}
 
 
-// window.userToken = null;
+window.userToken = null;
 
-// document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   
-//     var addButton = document.querySelector('#addButton')
-//     addButton.onclick = clickedAdd(sBase).bind(addButton);
-// });
+    var addButton = document.querySelector('#addButton')
+    addButton.onclick = clickedAdd.bind(addButton);
+});
 
 
-// const clickedAdd = (sBase) => {
-//     terminalLog("clicked add");
-//     var inputShortcut = document.getElementById("newShortcut").value;
-//     var inputURL = document.getElementById("newURL").value;
-//     var inputPassword = document.getElementById("password").value;
-//     if (hash(inputPassword) == 690) {
-//         if (inputShortcut != "" && inputURL != "") {
-//             addNewShortcut(inputShortcut, inputURL, sBase);
-//         } else {
-//             missingFields();
-//         }
+const clickedAdd = () => {
+    terminalLog("clicked add");
+    var inputShortcut = document.getElementById("newShortcut").value;
+    var inputURL = document.getElementById("newURL").value;
+    var inputPassword = document.getElementById("password").value;
+    if (hash(inputPassword) == 690) {
+        if (inputShortcut != "" && inputURL != "") {
+            addNewShortcut(inputShortcut, inputURL);
+        } else {
+            missingFields();
+        }
         
-//     } else {
-//         wrongPasswort();
-//     }
+    } else {
+        wrongPasswort();
+    }
 
-// };
-
-
-// const wrongPasswort = () => {
-//     terminalLog("Error: wrong password!", "error");
-// };
-
-// const missingFields = () => {
-//     terminalLog("Error: missing fields!", "error");
-// };
-
-// const terminalLog = (message, type="normal") => {
-//     var newColor = "white";
-//     if (type == "error") {
-//         newColor = "red";
-//     } else if (type == "success") {
-//         newColor = "green";
-//     };
-
-//     document.getElementById("terminal5").style.color = document.getElementById("terminal4").style.color;
-//     document.getElementById("terminal4").style.color = document.getElementById("terminal3").style.color;
-//     document.getElementById("terminal3").style.color = document.getElementById("terminal2").style.color;
-//     document.getElementById("terminal2").style.color = document.getElementById("terminal1").style.color;
-//     document.getElementById("terminal1").style.color = newColor;
+};
 
 
-//     document.getElementById("terminal5").innerHTML = document.getElementById("terminal4").innerHTML;
-//     document.getElementById("terminal4").innerHTML = document.getElementById("terminal3").innerHTML;
-//     document.getElementById("terminal3").innerHTML = document.getElementById("terminal2").innerHTML;
-//     document.getElementById("terminal2").innerHTML = document.getElementById("terminal1").innerHTML;
-//     document.getElementById("terminal1").innerHTML = "> " + message;
-// };
+const wrongPasswort = () => {
+    terminalLog("Error: wrong password!", "error");
+};
+
+const missingFields = () => {
+    terminalLog("Error: missing fields!", "error");
+};
+
+const terminalLog = (message, type="normal") => {
+    var newColor = "white";
+    if (type == "error") {
+        newColor = "red";
+    } else if (type == "success") {
+        newColor = "green";
+    };
+
+    document.getElementById("terminal5").style.color = document.getElementById("terminal4").style.color;
+    document.getElementById("terminal4").style.color = document.getElementById("terminal3").style.color;
+    document.getElementById("terminal3").style.color = document.getElementById("terminal2").style.color;
+    document.getElementById("terminal2").style.color = document.getElementById("terminal1").style.color;
+    document.getElementById("terminal1").style.color = newColor;
 
 
-// const hash = (key) => {
-//     let hash = 0;
-//     for (let i = 0; i < key.length; i++) {
-//         hash += key.charCodeAt(i);
-//     }
-//     return hash;
-// };
+    document.getElementById("terminal5").innerHTML = document.getElementById("terminal4").innerHTML;
+    document.getElementById("terminal4").innerHTML = document.getElementById("terminal3").innerHTML;
+    document.getElementById("terminal3").innerHTML = document.getElementById("terminal2").innerHTML;
+    document.getElementById("terminal2").innerHTML = document.getElementById("terminal1").innerHTML;
+    document.getElementById("terminal1").innerHTML = "> " + message;
+};
+
+
+const hash = (key) => {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+        hash += key.charCodeAt(i);
+    }
+    return hash;
+};
 
 
 
@@ -151,9 +150,7 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
     terminalLog("addNewShortcut()");
 
     terminalLog("query database");
-    const { data: shortcutsSoFar, error } = await sBase
-        .from('shortcuts')
-        .select()
+    const shortcutsSoFar = await getShortcuts();
     console.log(shortcutsSoFar);
 
     if (shortcutsSoFar !== undefined || shortcutsSoFar !== []) {
@@ -184,20 +181,17 @@ const addNewShortcut = async (inputShortcut, inputDestinationLink) => {
     if (isAllreadyTaken) {
         terminalLog("Error: Shortcut is allready taken", true);
     } else {
-        const { d, e } = await sBase
-        .from('shortcuts')
-        .insert([
-            { shortcut: inputShortcut, destination_link: inputDestinationLink }
-        ]);
+        pushNewShortcut(inputShortcut, inputDestinationLink)
+        
         document.getElementById("newShortcut").value = "";
         document.getElementById("newURL").value = "";
         document.getElementById("password").value = "";
         terminalLog("Added Shortcut: " + inputShortcut, "success");
         terminalLog("Destination: " + inputDestinationLink);
         terminalLog("Link: " + "j1b.site/?" + inputShortcut);
-        copyTextToClipboard("j1b.site/?" + inputShortcut);
+        //copyTextToClipboard("j1b.site/?" + inputShortcut);
     }
 
 }
-// getShortcuts();
 redirectDirectly();
+pushNewShortcut("test123", "https://google.com/test");
