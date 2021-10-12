@@ -3,14 +3,22 @@
     <link rel="icon" type="image/vnd.microsoft.icon" href="images/faviconJB.ico">
     <title>Speedtest WG 7/8 Kluftern</title>
     <meta http-equiv="refresh" content="60">
+    <script>
+        function resizeIframe(obj) {
+          obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+        }
+    </script>
 </head>
 <body style="background-color: white;">
     <h1 style="text-align: center; color: black;">
         Speedtest WG 7/8 Kluftern
     </h1>
-    <iframe width="100%" height="100%" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8BfaR_d0CgGvGjSAqYqk_cH126JYGZY5CnYEgWgCrCSsJTxouIQclsA-qJtsQa0e1UHmoPILn51M2/pubchart?oid=1704317088&amp;format=interactive">
-    </iframe>
+    <div>
+        <iframe seamless frameborder="0" scrolling="no" onload="resizeIframe(this)" 
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8BfaR_d0CgGvGjSAqYqk_cH126JYGZY5CnYEgWgCrCSsJTxouIQclsA-qJtsQa0e1UHmoPILn51M2/pubchart?oid=1704317088&amp;format=interactive">
+        </iframe>
+    </div>
+    
     
 </body>
 
