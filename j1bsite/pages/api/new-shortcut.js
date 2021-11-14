@@ -4,17 +4,20 @@ var supabase = createClient("https://kgshezreyobypiidaeii.supabase.co", "eyJhbGc
 
 
 export default async function handler(req, res) {
-  const { data: shortcutList, error } = await supabase
-    .from('shortcuts') 
-    .select()
-  console.log(shortcutList);
-
   if (req.method === 'POST') {
     // Process a POST request
-  } else {
-    // Handle any other HTTP method
+    // console.log(req);
+    const { data: shortcut, error } = await supabase
+      .from('shortcuts')
+      .insert({
+        shortcut: req.body.shortcut,
+        destination_link: req.body.destination_link,
+      })
+    res.setHeader('Location', '/');
+    res.status(200).json({ Success: "true" })
+    res.end();
+
   }
 
 
-  res.status(200).json({ shortcutList: shortcutList })
 }

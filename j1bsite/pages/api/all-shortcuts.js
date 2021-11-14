@@ -7,6 +7,6 @@ export default async function handler(req, res) {
   const { data: shortcutList, error } = await supabase
     .from('shortcuts') 
     .select()
-  console.log(shortcutList);
+  // console.log(shortcutList);
   res.status(200).json({ shortcutList: shortcutList })
 }
