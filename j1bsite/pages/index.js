@@ -90,7 +90,7 @@ export default class Home extends React.Component {
             <br/>
             <div id="impressum">
                 <p className="impressumHeader">Impressum</p>
-                <p className="impressum">According to German "TMG" laws §5 TMG</p>
+                <p className="impressum">According to German &quot;TMG&quot; laws §5 TMG</p>
                 <p className="impressum">Johannes Brandenburger</p>
                 <p className="impressum">Kirchstr. 16</p>
                 <p className="impressum">88512 Mengen</p>
