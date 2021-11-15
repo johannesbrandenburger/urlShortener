@@ -2,7 +2,9 @@
 import { createClient } from '@supabase/supabase-js';
 
 // get supabase key from env
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+// const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+ const supabaseKey = process.env.SUPABASE_KEY;
+
 
 console.log('supabaseKey', supabaseKey);
 
