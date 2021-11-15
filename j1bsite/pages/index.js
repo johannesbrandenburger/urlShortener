@@ -10,6 +10,9 @@ export default class Home extends React.Component {
     super(props)
     this.state = {
       allShortcuts: [],
+      currentShortcut: null,
+      isShortcutInserted: false,
+      isShortcutFound: false,
     }
   }
 
@@ -20,6 +23,39 @@ export default class Home extends React.Component {
     });
 
     console.log("this.state after componentDidMount():", this.state);
+
+    // get all url params
+    await this.redirectToShortcut();
+
+
+  }
+
+  redirectToShortcut = async () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const keys = urlParams.keys();
+    var shortLink = "";
+    var foundLink = false;
+    for (const key of keys) {
+        console.log(key);
+        shortLink = key;
+        break;
+    }
+
+    if (keys.length == 0 || shortLink == "") {
+      console.log("no shortcut inserted");
+    } else {
+      console.log("shortLink:", shortLink);
+      const allShortcuts = await this.getAllShortcuts();
+      for (const entry in allShortcuts) {
+        if (allShortcuts[entry].shortcut == shortLink) {
+          console.log("found entry:", entry);
+          window.location.href = allShortcuts[entry].destination_link;
+          foundLink = true;
+          break;
+        }
+      }
+    }
   }
 
   submitNewShortcut = async (event) => {
