@@ -19,8 +19,6 @@ export default class Home extends React.Component {
       allShortcuts: await this.getAllShortcuts(),
     });
 
-    console.log(await this.fetchData("test_supabase"));
-
     console.log("this.state after componentDidMount():", this.state);
   }
 
