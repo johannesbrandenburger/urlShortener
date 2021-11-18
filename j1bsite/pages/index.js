@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { } from 'react'
+import Terminal from './consoleComponent'
 
 //@ts-check
 
@@ -13,6 +14,13 @@ export default class Home extends React.Component {
       currentShortcut: null,
       isShortcutInserted: false,
       isShortcutFound: false,
+      seconds: 0,
+      currentLog:{
+        message: "",
+        isError: "",
+        isWarning: "",
+        isSuccess: ""
+      }
     }
   }
 
@@ -27,6 +35,12 @@ export default class Home extends React.Component {
     // get all url params
     await this.redirectToShortcut();
 
+    // create timer
+    this.interval = setInterval(() => {
+      this.setState({
+        seconds: this.state.seconds + 1,
+      });
+    }, 1000);
 
   }
 
@@ -37,9 +51,9 @@ export default class Home extends React.Component {
     var shortLink = "";
     var foundLink = false;
     for (const key of keys) {
-        console.log(key);
-        shortLink = key;
-        break;
+      console.log(key);
+      shortLink = key;
+      break;
     }
 
     if (keys.length == 0 || shortLink == "") {
@@ -113,6 +127,47 @@ export default class Home extends React.Component {
         </div>
         <button className="buttonC" type="submit">Submit</button>
       </form>
+
+      <div id="terminal">
+        <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
+        <input id="input" type="text" onChange={(event) => {
+          this.state.currentLog.message = event.target.value;
+          }} />
+        <button id="error" onClick={() => {
+          this.setState({
+            currentLog: {
+              message: this.state.currentLog.message,
+              isError: true,
+              isWarning: false,
+              isSuccess: false
+            }
+          })
+          }
+        }>Error</button>
+        <button id="warning" onClick={() => {
+          this.setState({
+            currentLog: {
+              message: this.state.currentLog.message,
+              isError: false,
+              isWarning: true,
+              isSuccess: false
+            }
+          })
+          }
+        }>Warning</button>
+        <button id="success" onClick={() => {
+          this.setState({
+            currentLog: {
+              message: this.state.currentLog.message,
+              isError: false,
+              isWarning: false,
+              isSuccess: true
+            }
+          })
+          }
+        }>Success</button>
+
+      </div>
 
 
         <div>
