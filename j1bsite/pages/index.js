@@ -115,7 +115,7 @@ export default class Home extends React.Component {
   render() {
     const headerText = "Welcome to j1b.site";
     if (this.state.isShortcutInserted && !this.state.isShortcutFound) {
-      headerText = "Shortcut "+ this.state.currentShortcut +"not found";
+      headerText = "Shortcut " + this.state.currentShortcut + " not found";
     } else if (this.state.isShortcutFound) {
       headerText = "Redirecting... ";
     }
@@ -123,10 +123,10 @@ export default class Home extends React.Component {
     return (
       <div>
 
-        <div id="header">
-          <h1 className="h1">{headerText}</h1>
-        </div>
-
+      <div id="header">
+        <h1 className="h1">{headerText}</h1>
+      </div>
+      <br/>
       <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
         <div className="form-group">
           <input className="inputC" id="shortcut" name="shortcut" type="text" required />
@@ -142,16 +142,17 @@ export default class Home extends React.Component {
         </div>
         <button className="buttonC" type="submit">Submit</button>
       </form>
-
+      <br/>
       <div id="terminal">
         <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
       </div>
 
-
+<br/>
+<br/>
         <div>
-            <h4>j1b.site</h4>        
+            <h4 className="h4">j1b.site</h4>        
             <div>
-                <p>Link Shortener </p> 
+                <p className="grey">Link Shortener </p> 
                 <p className="grey">©JohannesBrandenburger</p>
             </div>
             <br/>
