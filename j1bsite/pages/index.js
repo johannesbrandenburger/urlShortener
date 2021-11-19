@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { } from 'react'
-import Terminal from './consoleComponent'
+import Terminal from './terminal'
 
 //@ts-check
 
@@ -17,9 +17,9 @@ export default class Home extends React.Component {
       seconds: 0,
       currentLog:{
         message: "",
-        isError: "",
-        isWarning: "",
-        isSuccess: ""
+        isError: false,
+        isWarning: false,
+        isSuccess: false
       }
     }
   }
@@ -130,42 +130,22 @@ export default class Home extends React.Component {
 
       <div id="terminal">
         <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
-        <input id="input" type="text" onChange={(event) => {
-          this.state.currentLog.message = event.target.value;
-          }} />
+
         <button id="error" onClick={() => {
-          this.setState({
-            currentLog: {
-              message: this.state.currentLog.message,
-              isError: true,
-              isWarning: false,
-              isSuccess: false
-            }
-          })
-          }
-        }>Error</button>
+          this.terminalLog({message: "Error", isError: true})
+        }}>Error</button>
+
         <button id="warning" onClick={() => {
-          this.setState({
-            currentLog: {
-              message: this.state.currentLog.message,
-              isError: false,
-              isWarning: true,
-              isSuccess: false
-            }
-          })
-          }
-        }>Warning</button>
+          this.terminalLog({message: "Warning", isWarning: true})
+        }}>Warning</button>
+
         <button id="success" onClick={() => {
-          this.setState({
-            currentLog: {
-              message: this.state.currentLog.message,
-              isError: false,
-              isWarning: false,
-              isSuccess: true
-            }
-          })
-          }
-        }>Success</button>
+          this.terminalLog({message: "Success", isSuccess: true})
+        }}>Success</button>
+
+        <button id="neutral" onClick={() => {
+          this.terminalLog({message: "Neutral"})
+        }}>Neutral</button>
 
       </div>
 
@@ -194,6 +174,17 @@ export default class Home extends React.Component {
     )
   }
 
+
+  terminalLog = ({message, isError=false, isWarning=false, isSuccess=false}) => {
+    this.setState({
+      currentLog: {
+        message: message,
+        isError: isError,
+        isWarning: isWarning,
+        isSuccess: isSuccess
+      }
+    })
+  }
 
   // hash a value with sha256
   hash = async (value) => {
