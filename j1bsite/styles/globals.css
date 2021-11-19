@@ -143,11 +143,11 @@ l.i {
 .terminalLogs{
   width: 50%;
   min-width: 300px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.665);
   overflow: hidden;
   font-family:'Courier New', Courier, monospace;
   font-size: small;
-    
+  
 }
 
 .log{
@@ -155,13 +155,13 @@ l.i {
 }
 
 .logerror{
-  color: red;
+  color: rgb(143, 36, 36);
 }
 
 .logwarning{
-  color: orange;
+  color: rgb(187, 134, 35);
 }
 
 .logsuccess{
-  color: green;
+  color: rgb(21, 114, 21);
 }

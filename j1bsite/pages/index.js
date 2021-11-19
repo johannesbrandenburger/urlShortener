@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { } from 'react'
-import Terminal from './terminal'
+import Terminal from '../components/terminal'
 
 //@ts-check
 
@@ -58,16 +58,21 @@ export default class Home extends React.Component {
 
     if (keys.length == 0 || shortLink == "") {
       console.log("no shortcut inserted");
+      this.terminalLog({message: "no shortcut inserted", isWarning: true});
     } else {
-      console.log("shortLink:", shortLink);
+      this.terminalLog({message: "shortcut inserted: "+shortLink, isSuccess: true});
       const allShortcuts = await this.getAllShortcuts();
       for (const entry in allShortcuts) {
         if (allShortcuts[entry].shortcut == shortLink) {
-          console.log("found entry:", entry);
+          this.terminalLog({message: "shortcut found", isSuccess: true});
+          this.terminalLog({message: "redirecting to: "+allShortcuts[entry].destination_link});
           window.location.href = allShortcuts[entry].destination_link;
           foundLink = true;
           break;
         }
+      }
+      if (!foundLink) {
+        this.terminalLog({message: "shortcut not found", isError: true});
       }
     }
   }
@@ -182,7 +187,7 @@ export default class Home extends React.Component {
   }
 
   getAllShortcuts = async () => {
-    this.terminalLog({message: "Fetching database to get all shortcuts..."});
+    this.terminalLog({message: "fetching database to get all shortcuts..."});
     return await (await this.fetchData("all-shortcuts")).shortcutList;
   }
 
@@ -190,7 +195,7 @@ export default class Home extends React.Component {
     var fetchPath = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/api/' + handlerName;
     const response = await fetch(fetchPath);
     const data = await response.json();
-    if (response.ok) this.terminalLog({message: "Fetched data from database", isSuccess: true});
+    if (response.ok) this.terminalLog({message: "fetched data successfully", isSuccess: true});
     return data;
   }
 
@@ -205,8 +210,10 @@ export default class Home extends React.Component {
       })
     };
     const response = await fetch(fetchPath, requestOptions);
-    // const data = await response.json();
-    if (response.ok) this.terminalLog({message: "Uploaded new shortcut", isSuccess: true});
+    if (response.ok) {
+      this.terminalLog({message: "uploaded new shortcut: "+shortcut, isSuccess: true});
+      this.terminalLog({message: "your shortlink: https://j1b.site/?"+shortcut, isSuccess: true});
+  }
     else this.terminalLog({message: "Error while uploading new shortcut", isError: true});
   }
 

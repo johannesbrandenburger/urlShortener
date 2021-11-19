@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useImperativeHandle} from "react";
+import React from "react";
 
 //@ts-check
 
@@ -32,11 +32,16 @@ export default class Terminal extends React.Component {
         const lastLog = allLogs[allLogs.length - 1]
 
         var logIsNew = true;
-        if (lastLog !== undefined) {
-            if (currentLog.message === lastLog.message && currentLog.isError === lastLog.isError && currentLog.isWarning === lastLog.isWarning && currentLog.isSuccess === lastLog.isSuccess) {
-                logIsNew = false;
+        try {
+            if (lastLog !== undefined) {
+                if (currentLog.message === lastLog.message && currentLog.isError === lastLog.isError && currentLog.isWarning === lastLog.isWarning && currentLog.isSuccess === lastLog.isSuccess) {
+                    logIsNew = false;
+                }
             }
+        } catch (error) {
+            
         }
+        
         
         if (logIsNew && currentLog.message !== "") {
             allLogs.push(currentLog)
