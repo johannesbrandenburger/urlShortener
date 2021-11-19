@@ -10,7 +10,6 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      allShortcuts: [],
       currentShortcut: null,
       isShortcutInserted: false,
       isShortcutFound: false,
@@ -26,13 +25,6 @@ export default class Home extends React.Component {
 
   async componentDidMount() {
 
-    this.setState({
-      allShortcuts: await this.getAllShortcuts(),
-    });
-
-    console.log("this.state after componentDidMount():", this.state);
-
-    // get all url params
     await this.redirectToShortcut();
 
     // create timer
@@ -59,7 +51,15 @@ export default class Home extends React.Component {
     if (keys.length == 0 || shortLink == "") {
       console.log("no shortcut inserted");
       this.terminalLog({message: "no shortcut inserted", isWarning: true});
+      this.setState({
+        isShortcutInserted: false,
+        isShortcutFound: false
+      });
     } else {
+      this.setState({
+        currentShortcut: shortLink,
+        isShortcutInserted: true
+      });
       this.terminalLog({message: "shortcut inserted: "+shortLink, isSuccess: true});
       const allShortcuts = await this.getAllShortcuts();
       for (const entry in allShortcuts) {
@@ -72,6 +72,9 @@ export default class Home extends React.Component {
         }
       }
       if (!foundLink) {
+        this.setState({
+          isShortcutFound: false
+        });
         this.terminalLog({message: "shortcut not found", isError: true});
         this.terminalLog({message: "you can create a new shortcut now"});
       }
@@ -101,23 +104,28 @@ export default class Home extends React.Component {
       
       if (!shortCutExists) {
         await this.uploadNewShortcut(shortcut, destination_link);
-        this.setState({
-          allShortcuts: await this.getAllShortcuts(),
-        });
       }    
     } else {
       this.terminalLog({message: "Password incorrect", isError: true});
     }
-  this.setState({
-    allShortcuts: await this.getAllShortcuts(),
-  });
   }
 
+  
 
   render() {
+    const headerText = "Welcome to j1b.site";
+    if (this.state.isShortcutInserted && !this.state.isShortcutFound) {
+      headerText = "Shortcut "+ this.state.currentShortcut +"not found";
+    } else if (this.state.isShortcutFound) {
+      headerText = "Redirecting... ";
+    }
+
     return (
       <div>
 
+        <div id="header">
+          <h1 className="h1">{headerText}</h1>
+        </div>
 
       <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
         <div className="form-group">
