@@ -73,8 +73,7 @@ export default class Terminal extends React.Component {
 
         return (
             <div>
-                <h1>Terminal</h1>
-                <div>
+                <div className="terminalLogs">
                     {
                         htmlLogs.map((log, index) => {
                             return log

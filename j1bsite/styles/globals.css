@@ -138,23 +138,30 @@ l.i {
   text-align: center;
 }
 
+
+
+.terminalLogs{
+  width: 50%;
+  min-width: 300px;
+  background-color: black;
+  overflow: hidden;
+  font-family:'Courier New', Courier, monospace;
+  font-size: small;
+    
+}
+
 .log{
   color: gray;
-  background-color: black;
 }
 
 .logerror{
   color: red;
-  background-color: black;
 }
 
 .logwarning{
   color: orange;
-  background-color: black;
 }
 
 .logsuccess{
   color: green;
-  background-color: black;
-
 }

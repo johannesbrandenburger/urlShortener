@@ -82,11 +82,12 @@ export default class Home extends React.Component {
     const hashedPassword = await this.hash(password);
     console.log("hashedPassword:", hashedPassword);
     if (hashedPassword === "3ff35c7c909323d2f8b43899d127051a2d29b88e9857106a039c8d41b60b7ca0") {
+      this.terminalLog({message: "Password correct", isSuccess: true});
       const allShortcuts = await this.getAllShortcuts();
       var shortCutExists = false;
       for (let i = 0; i < allShortcuts.length; i++) {
         if (allShortcuts[i].shortcut === shortcut) {
-          alert("Shortcut already exists!");
+          this.terminalLog({message: "Shortcut already exists", isWarning: true});
           shortCutExists = true;
           return;
         }
@@ -99,7 +100,7 @@ export default class Home extends React.Component {
         });
       }    
     } else {
-      alert("Incorrect password");
+      this.terminalLog({message: "Password incorrect", isError: true});
     }
   this.setState({
     allShortcuts: await this.getAllShortcuts(),
@@ -130,23 +131,6 @@ export default class Home extends React.Component {
 
       <div id="terminal">
         <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
-
-        <button id="error" onClick={() => {
-          this.terminalLog({message: "Error", isError: true})
-        }}>Error</button>
-
-        <button id="warning" onClick={() => {
-          this.terminalLog({message: "Warning", isWarning: true})
-        }}>Warning</button>
-
-        <button id="success" onClick={() => {
-          this.terminalLog({message: "Success", isSuccess: true})
-        }}>Success</button>
-
-        <button id="neutral" onClick={() => {
-          this.terminalLog({message: "Neutral"})
-        }}>Neutral</button>
-
       </div>
 
 
@@ -198,6 +182,7 @@ export default class Home extends React.Component {
   }
 
   getAllShortcuts = async () => {
+    this.terminalLog({message: "Fetching database to get all shortcuts..."});
     return await (await this.fetchData("all-shortcuts")).shortcutList;
   }
 
@@ -205,6 +190,7 @@ export default class Home extends React.Component {
     var fetchPath = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/api/' + handlerName;
     const response = await fetch(fetchPath);
     const data = await response.json();
+    if (response.ok) this.terminalLog({message: "Fetched data from database", isSuccess: true});
     return data;
   }
 
@@ -220,6 +206,8 @@ export default class Home extends React.Component {
     };
     const response = await fetch(fetchPath, requestOptions);
     // const data = await response.json();
+    if (response.ok) this.terminalLog({message: "Uploaded new shortcut", isSuccess: true});
+    else this.terminalLog({message: "Error while uploading new shortcut", isError: true});
   }
 
 
