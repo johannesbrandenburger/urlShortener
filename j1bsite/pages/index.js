@@ -73,6 +73,7 @@ export default class Home extends React.Component {
       }
       if (!foundLink) {
         this.terminalLog({message: "shortcut not found", isError: true});
+        this.terminalLog({message: "you can create a new shortcut now"});
       }
     }
   }
