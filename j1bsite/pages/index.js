@@ -87,6 +87,12 @@ export default class Home extends React.Component {
     const destination_link = event.target.elements.destination_link.value;
     const password = event.target.elements.password.value;
     
+    // if destination_link is not a valid url add http://
+    if (!destination_link.startsWith("https://") && !destination_link.startsWith("http://") && !destination_link.startsWith("www.")) {
+      destination_link = "https://"+destination_link;
+    }
+
+
     // create hash
     const hashedPassword = await this.hash(password);
     console.log("hashedPassword:", hashedPassword);
@@ -122,54 +128,51 @@ export default class Home extends React.Component {
 
     return (
       <div>
-
-      <div id="header">
-        <h1 className="h1">{headerText}</h1>
-      </div>
-      <br/>
-      <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
-        <div className="form-group">
-          <input className="inputC" id="shortcut" name="shortcut" type="text" required />
-          <label htmlFor="shortcut">Shortcut</label>
+        <div id="header">
+          <h1 className="h1">{headerText}</h1>
         </div>
-        <div className="form-group">        
-          <input className="inputC" id="destination_link" name="destination_link" type="text" required />
-          <label htmlFor="destination_link">URL</label>
+        <br/>
+        <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
+          <div className="form-group">
+            <input className="inputC" id="shortcut" name="shortcut" type="text" required />
+            <label htmlFor="shortcut">Shortcut</label>
+          </div>
+          <div className="form-group">        
+            <input className="inputC" id="destination_link" name="destination_link" type="text" required />
+            <label htmlFor="destination_link">URL</label>
+          </div>
+          <div className="form-group">
+            <input className="inputC" id="password" name="password" type="password"required />        
+            <label htmlFor="password">Password</label>
+          </div>
+          <button className="buttonC" type="submit">Submit</button>
+        </form>
+        <br/>
+        <div id="terminal">
+          <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
         </div>
-        <div className="form-group">
-          <input className="inputC" id="password" name="password" type="password"required />        
-          <label htmlFor="password">Password</label>
-        </div>
-        <button className="buttonC" type="submit">Submit</button>
-      </form>
-      <br/>
-      <div id="terminal">
-        <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
-      </div>
-
-<br/>
-<br/>
+        <br/>
+        <br/>
         <div>
-            <h4 className="h4">j1b.site</h4>        
-            <div>
-                <p className="grey">Link Shortener </p> 
-                <p className="grey">©JohannesBrandenburger</p>
-            </div>
-            <br/>
-            <div id="impressum">
-                <p className="impressumHeader">Impressum</p>
-                <p className="impressum">According to German &quot;TMG&quot; laws §5 TMG</p>
-                <p className="impressum">Johannes Brandenburger</p>
-                <p className="impressum">Kirchstr. 16</p>
-                <p className="impressum">88512 Mengen</p>
-                <p className="impressum">Germany</p>
-                <p className="impressumHeader">Contact</p>
-                <p className="impressum">Phone: +49 152 25366286</p>
-                <p className="impressum">E-Mail: johannes0709@icloud.com</p>
-            </div>
+          <h4 className="h4">j1b.site</h4>        
+          <div>
+            <p className="grey">Link Shortener </p> 
+            <p className="grey">©JohannesBrandenburger</p>
+          </div>
+          <br/>
+          <div id="impressum">
+            <p className="impressumHeader">Impressum</p>
+            <p className="impressum">According to German &quot;TMG&quot; laws §5 TMG</p>
+            <p className="impressum">Johannes Brandenburger</p>
+            <p className="impressum">Kirchstr. 16</p>
+            <p className="impressum">88512 Mengen</p>
+            <p className="impressum">Germany</p>
+            <p className="impressumHeader">Contact</p>
+            <p className="impressum">Phone: +49 152 25366286</p>
+            <p className="impressum">E-Mail: johannes0709@icloud.com</p>
+          </div>
         </div>
       </div>
-
     )
   }
 
