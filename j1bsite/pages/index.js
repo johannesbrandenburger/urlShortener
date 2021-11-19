@@ -119,7 +119,7 @@ export default class Home extends React.Component {
   
 
   render() {
-    const headerText = "Welcome to j1b.site";
+    const headerText = "j1b.site";
     if (this.state.isShortcutInserted && !this.state.isShortcutFound) {
       headerText = "Shortcut " + this.state.currentShortcut + " not found";
     } else if (this.state.isShortcutFound) {
@@ -128,28 +128,30 @@ export default class Home extends React.Component {
 
     return (
       <div>
-        <div id="header">
+        <div id="header" className="header">
           <h1 className="h1">{headerText}</h1>
         </div>
         <br/>
-        <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
-          <div className="form-group">
-            <input className="inputC" id="shortcut" name="shortcut" type="text" required />
-            <label htmlFor="shortcut">Shortcut</label>
+        <div id="formAndTerminal">
+          <form onSubmit={(event) => {this.submitNewShortcut(event)}}>
+            <div className="form-group">
+              <input className="inputC" id="shortcut" name="shortcut" type="text" required />
+              <label className="inputLabel" htmlFor="shortcut">Shortcut</label>
+            </div>
+            <div className="form-group">        
+              <input className="inputC" id="destination_link" name="destination_link" type="text" required />
+              <label className="inputLabel" htmlFor="destination_link">URL</label>
+            </div>
+            <div className="form-group">
+              <input className="inputC" id="password" name="password" type="password"required />        
+              <label className="inputLabel" htmlFor="password">Password</label>
+            </div>
+            <button className="buttonC" type="submit">Submit</button>
+          </form>
+          <br/>
+          <div id="terminal">
+            <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
           </div>
-          <div className="form-group">        
-            <input className="inputC" id="destination_link" name="destination_link" type="text" required />
-            <label htmlFor="destination_link">URL</label>
-          </div>
-          <div className="form-group">
-            <input className="inputC" id="password" name="password" type="password"required />        
-            <label htmlFor="password">Password</label>
-          </div>
-          <button className="buttonC" type="submit">Submit</button>
-        </form>
-        <br/>
-        <div id="terminal">
-          <Terminal currentLog={this.state.currentLog} lines={5}> </Terminal>
         </div>
         <br/>
         <br/>

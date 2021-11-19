@@ -13,7 +13,9 @@ body {
   font-weight:normal;
   color: #D7BA7D;
   margin-bottom: 0;
+  align-self: center;
 }
+
 
 .h2 {
   font-weight:normal;
@@ -76,7 +78,7 @@ l.i {
   background-color: rgba(0, 0, 0, 0.377);
   height: 20; 
   width: 50%;
-  min-width: 300;
+  min-width: 275px;
   margin-top: 0;
   margin-bottom: 0;
   font-size: small;
@@ -91,6 +93,10 @@ l.i {
   display: none;
 }
 
+.header{
+  display: flex;
+  align-items:center;
+}
 
 .inputC[type=text] {
   width: 50%;
@@ -105,6 +111,8 @@ l.i {
   font-family:'Courier New', Courier, monospace;
   border-radius: 3pt;
   max-width: 400;
+  min-width: 290px;
+  display: block;
 }
 
 .inputC[type="password"] {
@@ -120,6 +128,19 @@ l.i {
   font-family:'Courier New', Courier, monospace;
   border-radius: 3pt;
   max-width: 400;
+  display: block;
+  min-width: 290px;
+
+}
+
+.inputLabel {
+  color: #9CDCFE;
+  font-family:'Courier New', Courier, monospace;
+  font-size: small;
+  font-weight: lighter;
+  margin-bottom: 0;
+  margin-top: 0;
+  min-width: 290px;
 }
 
 .buttonC{
@@ -138,11 +159,13 @@ l.i {
   text-align: center;
 }
 
-
+.form-group{
+  margin-bottom: 15px;
+}
 
 .terminalLogs{
   width: 50%;
-  min-width: 300px;
+  min-width: 290px;
   background-color: rgba(0, 0, 0, 0.665);
   overflow: hidden;
   font-family:'Courier New', Courier, monospace;
