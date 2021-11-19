@@ -13,8 +13,6 @@ export default class Terminal extends React.Component {
 
 
     render() {
-        console.log("Terminal.render()")
-
         var tempLog = {
             message: "",
             isError: false,
@@ -39,8 +37,6 @@ export default class Terminal extends React.Component {
                 logIsNew = false;
             }
         }
-
-        console.log("logIsNew: " + logIsNew)
         
         if (logIsNew && currentLog.message !== "") {
             allLogs.push(currentLog)
