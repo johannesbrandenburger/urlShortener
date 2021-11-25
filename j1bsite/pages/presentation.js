@@ -95,13 +95,15 @@ mainAsync().then(() => {
 
   render() {
     return (
-      <div className={styles.container}>
-        <Head>
-          <title>Code-Presentation</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <div className={styles.hideScrollbar}>
+        <div className={styles.container} >
+          <Head>
+            <title>Code-Presentation</title>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
 
-        <CodeSlideShow codeSnippets={this.codeSnippets} />
+          <CodeSlideShow codeSnippets={this.codeSnippets} />
+        </div>
       </div>
     )
   }

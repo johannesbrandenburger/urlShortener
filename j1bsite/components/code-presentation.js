@@ -26,8 +26,6 @@ export default class CodeSlideShow extends React.Component {
                 this.nextSlide()
             }
         });
-
-        Prism.highlightAll();
     }
 
     prevSlide = () => {

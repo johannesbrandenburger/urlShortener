@@ -5,3 +5,8 @@
   margin-top: 20px;
   color: white;
 }
+
+.hideScrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
