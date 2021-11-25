@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { } from 'react'
-import { CodeBlock, dracula } from "react-code-blocks";
+import { CodeBlock, dracula, vs2015 } from "react-code-blocks";
 
 
 
@@ -55,7 +55,7 @@ export default class CodeSlideShow extends React.Component {
                     text={codeText}
                     language={codeLanguage}
                     showLineNumbers={true}
-                    theme={dracula}
+                    theme={vs2015}
                 />
             </div>
         )
