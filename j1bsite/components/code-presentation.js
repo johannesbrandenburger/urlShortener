@@ -39,22 +39,9 @@ export default class CodeSlideShow extends React.Component {
                 this.mark10Down()
             } else if (e.key === "j") {
                 this.mark10Up()
-            } else if (e.key === ".") {
-                // later in parent component
-                this.openVScodePage()
             }
         });
     }
-
-    openVScodePage = () => {
-        // password safty not implemented yet
-        window.open("http://jbserver01.ddns.net" + "?tkn=johannes", "_blank")
-        // const hostnamehostname = window.location.hostname;
-        // const port = window.location.port;
-        // const urlToOpen = "http://" + hostnamehostname + ":" + port + "/vscode";
-        // window.open(urlToOpen, "_blank")
-    }
-
 
     markDown = () => {
         this.setState({

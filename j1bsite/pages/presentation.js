@@ -138,6 +138,20 @@ mainAsync().then(() => {
     ]
   }
 
+  async componentDidMount() {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === ".") {
+            this.openVScodePage()
+        }
+    });
+}
+
+openVScodePage = () => {
+    const hostnamehostname = window.location.hostname;
+    const port = window.location.port;
+    const urlToOpen = "http://" + hostnamehostname + ":" + port + "/vscode";
+    window.open(urlToOpen, "_blank")
+}
 
   render() {
     return (

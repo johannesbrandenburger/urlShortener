@@ -50,11 +50,10 @@ export default class VSCodeStarter extends React.Component {
     const hashedPassword = await this.hash(password);
     console.log("hashedPassword:", hashedPassword);
     if (hashedPassword === "9ffafcadda529df8d815fd787df39a42a9eaa1b13a1f14501fe1295413177bff") {
-        window.location.href = "http://jbserver01.ddns.net" + "?tkn=johannes";
+      navigator.clipboard.writeText("?tkn=johannes");
+      window.location.href = "http://jbserver01.ddns.net" + "?tkn=johannes";
     }
   }
-
-
 
 
 }
