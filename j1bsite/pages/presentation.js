@@ -18,7 +18,7 @@ export default class Presentation extends React.Component {
     - einfache Backend-Lösung
 
 - von MariaDB selber
-    - nativer Javascript driver
+    - nativer JavaScript driver
 
 - default API ist Promise (daher mindestens Node.js 6.0)
     - Promise: eine Art in JavaScript, um mit asynchronen Funktionen zu arbeiten

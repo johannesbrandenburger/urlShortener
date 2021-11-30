@@ -35,6 +35,10 @@ export default class CodeSlideShow extends React.Component {
                 this.nextSlide()
             } else if (e.keyCode === 27) {
                 this.setState({ highlightedLine: 0 })
+            } else if (e.key === "l") {
+                this.mark10Down()
+            } else if (e.key === "j") {
+                this.mark10Up()
             }
         });
     }
@@ -51,7 +55,24 @@ export default class CodeSlideShow extends React.Component {
                 highlightedLine: this.state.highlightedLine - 1
             })
         }
-    }       
+    }     
+    
+    mark10Down = () => {
+        this.setState({
+            highlightedLine: this.state.highlightedLine + 10
+        })
+    }
+
+    mark10Up = () => {
+        this.setState({
+            highlightedLine: this.state.highlightedLine - 10
+        })
+        if (this.state.highlightedLine < 0) {
+            this.setState({
+                highlightedLine: 0
+            })
+        }
+    }  
 
     prevSlide = () => {
         if (this.state.slideIndex > 0) {
