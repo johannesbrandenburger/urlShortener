@@ -12,12 +12,35 @@ export default class Presentation extends React.Component {
     super(props)
     this.codeSnippets = [
       {
+        code: `#MariaDB Node.js Connector
+
+- um SQL-Statements auf einem Node.js-Server auszuführen
+    - einfache Backend-Lösung
+
+- von MariaDB selber
+    - nativer Javascript driver
+
+- default API ist Promise (daher mindestens Node.js 6.0)
+    - Promise: eine Art in JavaScript, um mit asynchronen Funktionen zu arbeiten
+
+- über npm installierbar:
+  $ npm install mariadb
+
+- oder auf GitHub einsehbar:
+  https://github.com/MariaDB/mariadb-connector-nodejs
+
+`,
+        language: 'text',
+        isNormalText: true
+      },
+      {
         code: `// Use the MariaDB Node.js Connector
 var mariadb = require('mariadb');
 
 // Use dns to get the IP address of the database server
 var dns = require('dns');`,
         language: 'javascript',
+        isNormalText: false
       },
       {
         code: `// Function to run a SQL statement
@@ -59,6 +82,7 @@ const runSQLstatement = async (sqlString) => {
     } catch (err) { console.log(err); }
 }`,
         language: 'javascript',
+        isNormalText: false
       },
       {
         code: `const mainAsync = async () => {
@@ -87,7 +111,29 @@ mainAsync().then(() => {
     process.exit();
 });`,
       language: 'javascript',
-    },      
+      isNormalText: false
+    },
+    {
+      code:`┌────────────┬─────────────────┐
+│  (index)   │     Values      │
+├────────────┼─────────────────┤
+│   Titel    │ 'Linux-Systeme' │
+│ Untertitel │       ''        │
+│   Verlag   │   'Oetinger'    │
+│   Preis    │       100       │
+└────────────┴─────────────────┘
+┌────────────┬──────────────────────────────────────────┐
+│  (index)   │                  Values                  │
+├────────────┼──────────────────────────────────────────┤
+│   Titel    │       'Linux Systemadministration'       │
+│ Untertitel │ 'Einrichtung. Wartung. Software-Updates' │
+│   Verlag   │          'Addison Wesley Longm'          │
+│   Preis    │                  45.95                   │
+└────────────┴──────────────────────────────────────────┘
+2 rows affected
+1 rows affected
+      `, language: 'javascript', isNormalText: true
+    }  
 
     ]
   }

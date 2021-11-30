@@ -14,6 +14,7 @@ export default class CodeSlideShow extends React.Component {
         this.state = {
             slideIndex: 0,
             codeSnippet: this.props.codeSnippets[0]["code"],
+            highlightedLine: 0,
         }
     }
 
@@ -24,14 +25,39 @@ export default class CodeSlideShow extends React.Component {
                 this.prevSlide()
             } else if (e.keyCode === 39) {
                 this.nextSlide()
+            } else if (e.key === "w" || e.keyCode === 38) {
+                this.markUp()
+            } else if (e.key === "s" || e.keyCode === 40) {
+                this.markDown()
+            } else if (e.key === "a") {
+                this.prevSlide()
+            } else if (e.key === "d") {
+                this.nextSlide()
+            } else if (e.keyCode === 27) {
+                this.setState({ highlightedLine: 0 })
             }
         });
     }
 
+    markDown = () => {
+        this.setState({
+            highlightedLine: this.state.highlightedLine + 1
+        })
+    }
+
+    markUp = () => {
+        if (this.state.highlightedLine > 0) {
+            this.setState({
+                highlightedLine: this.state.highlightedLine - 1
+            })
+        }
+    }       
+
     prevSlide = () => {
         if (this.state.slideIndex > 0) {
             this.setState({
-                slideIndex: this.state.slideIndex - 1
+                slideIndex: this.state.slideIndex - 1,
+                highlightedLine: 0,
             })
         }
     }
@@ -39,7 +65,8 @@ export default class CodeSlideShow extends React.Component {
     nextSlide = () => {
         if (this.state.slideIndex < this.props.codeSnippets.length - 1) {
             this.setState({
-                slideIndex: this.state.slideIndex + 1
+                slideIndex: this.state.slideIndex + 1,
+                highlightedLine: 0,
             })
         }
     }
@@ -47,13 +74,18 @@ export default class CodeSlideShow extends React.Component {
     render() {
         const codeText = this.props.codeSnippets[this.state.slideIndex]["code"];
         const codeLanguage = this.props.codeSnippets[this.state.slideIndex]["language"];
+        const isNormalText = this.props.codeSnippets[this.state.slideIndex]["isNormalText"];
+        const highlightedLine = (this.state.highlightedLine !== 0) ? (this.state.highlightedLine).toString() : "";
+
         return (
             <div>
                 <CodeBlock
                     text={codeText}
                     language={codeLanguage}
-                    showLineNumbers={true}
+                    showLineNumbers={isNormalText ? false : true}
                     theme={vs2015}
+                    highlight={highlightedLine}
+
                 />
             </div>
         )
