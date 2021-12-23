@@ -34,7 +34,7 @@ export default class Home extends React.Component {
       });
     }, 1000);
 
-    window.location.href = "https://google.com/";
+    // window.location.href = "https://google.com/";
 
   }
 
